@@ -3,3 +3,5 @@ create table user(
     name varchar(100) not null,
     constraint primary key (id)
 );
+
+insert into user (name) value ('Daniel'), ('Maria'), ('Pedro');

@@ -19,6 +19,18 @@ $url = [
 
 $config = new Configuration;
 
-$conn = DriverManager::getConnection($params, $config);
+$conn = DriverManager::getConnection($url, $config);
 
-var_dump($conn);
+$filter = '';
+if (isset($_GET['id'])) {
+    $filter = " where id = " . $_GET['id'];
+}
+
+$sql = 'SELECT * FROM user' . $filter;
+$result = $conn->query($sql);
+
+while ($row = $result->fetch()) {
+    echo $row['name'] . "<br>";
+}
+
+//var_dump($conn);
