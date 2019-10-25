@@ -21,13 +21,19 @@ $config = new Configuration;
 
 $conn = DriverManager::getConnection($url, $config);
 
-$filter = '';
+
+
 if (isset($_GET['id'])) {
-    $filter = " where id = " . $_GET['id'];
+    $id = $_GET['id'];
+    $sql = 'SELECT * FROM user where id = :myId';
+    $result = $conn->prepare($sql);
+    $result->bindValue('myId', $id);
+} else {
+    $sql = 'SELECT * FROM user';
+    $result = $conn->prepare($sql);
 }
 
-$sql = 'SELECT * FROM user' . $filter;
-$result = $conn->query($sql);
+$result->execute();
 
 while ($row = $result->fetch()) {
     echo $row['name'] . "<br>";
