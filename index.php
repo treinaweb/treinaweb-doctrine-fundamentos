@@ -20,23 +20,22 @@ $url = [
 $config = new Configuration;
 
 $conn = DriverManager::getConnection($url, $config);
+$queryBuilder = $conn->createQueryBuilder();
 
-
+$result = $queryBuilder
+                ->select('name')
+                ->from('user');
 
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $sql = 'SELECT * FROM user where id = :myId';
-    $result = $conn->prepare($sql);
-    $result->bindValue('myId', $id);
-} else {
-    $sql = 'SELECT * FROM user';
-    $result = $conn->prepare($sql);
-}
-
-$result->execute();
+    $queryBuilder->where('id = :myid')
+                 ->setParameter('myid', $_GET['id']);  
+}                  
+                
+$result = $queryBuilder->execute();
 
 while ($row = $result->fetch()) {
     echo $row['name'] . "<br>";
 }
+
 
 //var_dump($conn);
