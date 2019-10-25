@@ -4,6 +4,7 @@ require_once "vendor/autoload.php";
 
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Configuration;
+use Doctrine\DBAL\Schema\Schema;
 
 $params = [
     'dbname' => 'doctrine',
@@ -20,22 +21,24 @@ $url = [
 $config = new Configuration;
 
 $conn = DriverManager::getConnection($url, $config);
-$queryBuilder = $conn->createQueryBuilder();
 
-$result = $queryBuilder
-                ->select('name')
-                ->from('user');
+$schema = new Schema;
 
-if (isset($_GET['id'])) {
-    $queryBuilder->where('id = :myid')
-                 ->setParameter('myid', $_GET['id']);  
-}                  
-                
-$result = $queryBuilder->execute();
+$articleTable = $schema->createTable('article');
 
-while ($row = $result->fetch()) {
-    echo $row['name'] . "<br>";
+$articleTable->addColumn('id', 'integer', ['unsigned' => true]);
+$articleTable->addColumn('subject', 'string', ['length' => 100]);
+$articleTable->addColumn('content', 'text');
+$articleTable->setPrimaryKey(["id"]);
+
+$articleTable->addColumn('user_id', 'integer');
+$articleTable->addForeignKeyConstraint('user', ["user_id"], ["id"]);
+
+$queries = $schema->toSql(new \Doctrine\DBAL\Platforms\MySqlPlatform);
+
+foreach ($queries as $query) {
+    $conn->query($query);
 }
 
+var_dump($queries);
 
-//var_dump($conn);
