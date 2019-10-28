@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class User {
-
+class User
+{
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -21,4 +21,18 @@ class User {
      */
     private $name;
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
 }
