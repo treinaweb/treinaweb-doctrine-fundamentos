@@ -5,7 +5,7 @@ namespace App\Entities;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repositories\UserRepository")
  * @ORM\Table(name="user")
  */
 class User
