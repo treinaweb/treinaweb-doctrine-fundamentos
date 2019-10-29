@@ -11,4 +11,16 @@ $query = $entityManager->createQuery("SELECT u FROM App\Entities\User u WHERE u.
 $query->setParameter('number', $_GET["num"]);
 $users = $query->getResult();
 
-var_dump($users);
+//var_dump($users);
+
+$queryBuilder = $entityManager->createQueryBuilder();
+
+$queryBuilder->select('u')
+             ->from('App\Entities\User', 'u')
+             ->where('u.id > :number')
+             ->setParameter('number', $_GET["num"]);
+
+$queryDQL = $queryBuilder->getQuery();
+$allU = $queryDQL->getResult();
+
+var_dump($allU);
