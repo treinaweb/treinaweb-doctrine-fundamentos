@@ -25,6 +25,11 @@ class User
     /**
      * @ORM\Column(type="string")
      */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     private $address;
 
     public function getId()

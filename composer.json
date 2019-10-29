@@ -2,7 +2,8 @@
     "name": "treinaweb/doctrine",
     "type": "project",
     "require": {
-        "doctrine/orm": "^2.6.2"
+        "doctrine/orm": "^2.6.2",
+        "doctrine/migrations": "^2.0"
     },
     "autoload": {
         "psr-4": {

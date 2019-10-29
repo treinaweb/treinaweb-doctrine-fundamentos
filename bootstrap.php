@@ -10,7 +10,7 @@ $isDevMode = true;
 $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode, null, null, false);
 
 $params = [
-    'url' => "mysql://homestead:secret@192.168.10.10/doctrine"
+    'url' => "mysql://homestead:secret@192.168.10.10/doctrine2"
 ];
 
 $entityManager = EntityManager::create($params, $config);
