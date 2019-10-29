@@ -2,6 +2,8 @@
 
 require_once "bootstrap.php";
 
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
+
 $query = $entityManager->createQuery("SELECT u FROM App\Entities\User u");
 $allUsers = $query->getResult();
 
@@ -23,4 +25,18 @@ $queryBuilder->select('u')
 $queryDQL = $queryBuilder->getQuery();
 $allU = $queryDQL->getResult();
 
-var_dump($allU);
+//var_dump($allU);
+
+
+$map = new ResultSetMappingBuilder($entityManager);
+$map->addRootEntityFromClassMetadata('App\Entities\User', 'u');
+
+$query = $entityManager->createNativeQuery('SELECT u.id, u.name FROM user u', $map);
+
+$users1 = $query->getResult();
+
+var_dump($users1);
+
+
+
+
