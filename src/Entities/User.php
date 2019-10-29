@@ -22,6 +22,11 @@ class User
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $address;
+
     public function getId()
     {
         return $this->id;
