@@ -22,6 +22,11 @@ class Comment
      */
     private $message;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entities\Post")
+     */
+    private $post;
+
     public function getId()
     {
         return $this->id;
@@ -35,5 +40,16 @@ class Comment
     public function getMessage()
     {
         return $this->message;
+    }
+
+    public function getPost()
+    {
+        return $this->post;
+    }
+
+    public function setPost(Post $post)
+    {
+        $this->post = $post;
+        return $this;
     }
 }
