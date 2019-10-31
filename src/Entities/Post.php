@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -10,6 +11,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Post
 {
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -26,6 +32,11 @@ class Post
      * @ORM\Column(type="text")
      */
     private $content;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entities\Comment", mappedBy="post")
+     */
+    private $comments;
 
 
     public function getId()
@@ -51,5 +62,21 @@ class Post
     public function getContent()
     {
         return $this->content;
+    }
+
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    public function setComments(ArrayCollection $comments)
+    {
+        $this->comments = $comments;
+
+        foreach ($comments as $comment) {
+            $comment->setPost($this);
+        }
+
+        return $this;
     }
 }
