@@ -14,6 +14,7 @@ class Post
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     /**
@@ -37,6 +38,11 @@ class Post
      * @ORM\OneToMany(targetEntity="App\Entities\Comment", mappedBy="post")
      */
     private $comments;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entities\Category")
+     */
+    private $categories;
 
 
     public function getId()
@@ -78,5 +84,20 @@ class Post
         }
 
         return $this;
+    }
+
+    public function setCategory(Category $category)
+    {
+        $this->categories[] = $category;
+    }
+
+    public function setCategories(ArrayCollection $categories)
+    {
+        $this->categories = $categories;
+    }
+
+    public function getCategories()
+    {
+        $this->categories;
     }
 }
