@@ -104,4 +104,14 @@ class Post
     {
         return $this->categories;
     }
+
+    public function setDetail(Detail $detail)
+    {
+        $this->detail = $detail;
+    }
+
+    public function getDetail()
+    {
+        return $this->detail;
+    }
 }
