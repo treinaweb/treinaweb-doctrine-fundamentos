@@ -44,6 +44,10 @@ class Post
      */
     private $categories;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entities\Detail")
+     */
+    private $detail;
 
     public function getId()
     {
